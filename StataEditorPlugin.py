@@ -113,7 +113,7 @@ def SelectCode(self,selection):
 	elif len_sels != 0 and selection == "default":
 		for sel in sels:
 			self.view.sel().add(self.view.line(sel.begin()))
-			self.view.sel().add(self.view.line(sel.end()))
+			# self.view.sel().add(self.view.line(sel.end()))
 		
 		for sel in sels:
 			all_text = all_text + self.view.substr(sel) + "\n"
