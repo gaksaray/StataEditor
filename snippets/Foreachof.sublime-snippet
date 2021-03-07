@@ -1,0 +1,10 @@
+<snippet>
+	<content><![CDATA[
+foreach ${1:lname} of ${2:listtype} ${3:list} {
+	$0
+}
+]]></content>
+	<tabTrigger>fore</tabTrigger>
+	<scope>source.stata</scope>scope>
+	<description>Foreach of</description>description
+</snippet>

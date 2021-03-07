@@ -1,12 +1,10 @@
 <snippet>
 	<content><![CDATA[
-foreach w in ${1:varlist} {
-
+foreach ${1:lname} in ${2:any_list} {
 	$0
-
 }
 ]]></content>
 	<tabTrigger>fore</tabTrigger>
 	<scope>source.stata</scope>scope>
-	<description>Foreach</description>description
+	<description>Foreach in</description>description
 </snippet>
