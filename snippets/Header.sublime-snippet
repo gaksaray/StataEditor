@@ -1,0 +1,12 @@
+<snippet>
+	<content><![CDATA[
+// =============================================================================
+// PROJECT		${1:project}
+// SCRIPT		${2:script}
+// PURPOSE		${3:purpose}.
+// =============================================================================
+]]></content>
+	<tabTrigger>head</tabTrigger>
+	<scope>source.stata</scope>scope>
+	<description>Script header</description>description
+</snippet>
