@@ -1,9 +1,9 @@
 <snippet>
 	<content><![CDATA[
 // =============================================================================
-// PROJECT		${1:project_name}
-// SCRIPT		${2:script_name}
-// PURPOSE		${3:Script purpose}.
+// Project: ${1:ProjectName}
+// Script : ${2:script_name}.do
+// Purpose: ${3:Script purpose}.
 // =============================================================================
 
 $0
