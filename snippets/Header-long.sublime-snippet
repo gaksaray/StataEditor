@@ -1,0 +1,16 @@
+<snippet>
+    <content><![CDATA[
+/*
+ * Project: ${1:ProjectName}
+ * Script : ${2:script_name}.do
+ * Author : ${3:Author Name}
+ * Date   : ${4:dd}${5:mmm}${6:yyyy}
+ * Purpose: ${7:Script purpose.}
+ */
+
+$0
+]]></content>
+    <tabTrigger>head</tabTrigger>
+    <scope>source.stata</scope>scope>
+    <description>Script header (long)</description>description
+</snippet>
