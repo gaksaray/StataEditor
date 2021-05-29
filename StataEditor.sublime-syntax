@@ -30,7 +30,7 @@ contexts:
         - match: \*/
           scope: punctuation.definition.comment.stata
           pop: true
-    - match: ^\*
+    - match: ^\s*\*.*
       scope: punctuation.definition.comment.stata
       push:
         - meta_scope: comment.line.asterisk.stata
