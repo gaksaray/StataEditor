@@ -1,10 +1,7 @@
 %YAML 1.2
 ---
-# http://www.sublimetext.com/docs/3/syntax.html
 name: Stata
-file_extensions:
-  - do
-  - ado
+file_extensions: [do, ado]
 scope: source.stata
 
 contexts:
@@ -17,18 +14,17 @@ contexts:
     - include: functions
   
   comments:
-    - match: // # ^\s*//.*|\s+//.*|^\s*\*.* in original
+    - match: \/\/(?!.*\/)
       scope: punctuation.definition.comment.stata
       push:
-        - meta_scope: comment.line.double-slash.stata # comment.line.stata in original
+        - meta_scope: comment.line.double-slash.stata
         - match: \n
           pop: true
-    - match: /\*
+    - match: \/\/\/
       scope: punctuation.definition.comment.stata
       push:
-        - meta_scope: comment.block.stata
-        - match: \*/
-          scope: punctuation.definition.comment.stata
+        - meta_scope: comment.line.triple-slash.stata
+        - match: \n
           pop: true
     - match: ^\s*\*.*
       scope: punctuation.definition.comment.stata
@@ -36,39 +32,60 @@ contexts:
         - meta_scope: comment.line.asterisk.stata
         - match: \n
           pop: true
-
+    - match: \/\*
+      scope: punctuation.definition.comment.stata
+      push:
+        - meta_scope: comment.block.stata
+        - match: \*\/
+          scope: punctuation.definition.comment.stata
+          pop: true
+  
   variables:
-    - match: '`"'
+    - match: '`[^"]'
       push:
         - meta_scope: variable.parameter.stata
-        - match: '"'''
+        - match: '''(?!.*\'')'
           pop: true
-    - match: '`(\S(?!''))*`(\S(?!''))*`'
-      push:
-        - meta_scope: variable.parameter.stata
-        - match: '''\S*''\S*'''
-          pop: true
-    - match: '`(\S(?!''))*`'
-      push:
-        - meta_scope: variable.parameter.stata
-        - match: '''\S*'''
-          pop: true
-    - match: "`"
-      push:
-        - meta_scope: variable.parameter.stata
-        - match: "'"
-          pop: true
-    - match: '(\$(\{)?\w*(\})?)'
-      scope: variable.parameter.stata
+    # - match: "`"
+    #   push:
+    #     - meta_scope: variable.parameter.stata
+    #     - match: '(\$(\{)?\w*(\})?)'
+    #       pop: true
+
+  # variables:
+  #   - match: '`"'
+  #     push:
+  #       - meta_scope: variable.parameter.stata
+  #       - match: '"'''
+  #         pop: true
+  #   - match: '`(\S(?!''))*`(\S(?!''))*`'
+  #     push:
+  #       - meta_scope: variable.parameter.stata
+  #       - match: '''\S*''\S*'''
+  #         pop: true
+  #   - match: '`(\S(?!''))*`'
+  #     push:
+  #       - meta_scope: variable.parameter.stata
+  #       - match: '''\S*'''
+  #         pop: true
+  #   - match: "`"
+  #     push:
+  #       - meta_scope: variable.parameter.stata
+  #       - match: "'"
+  #         pop: true
+  #   - match: '(\$(\{)?\w*(\})?)'
+  #     scope: variable.parameter.stata
 
   strings:
-    - match: '"'
+    - match: '(?<!\`)"'
       scope: punctuation.definition.string.begin.stata
       push:
         - meta_scope: string.quoted.double.stata
         - match: '"'
           scope: punctuation.definition.string.end.stata
           pop: true
+    - match: '(?<!\`)\`\"[^\`\'']*?\"\'''
+      scope: string.quoted.compound.stata
 
   keywords:
     - match: \b(if|in|forvalues|foreach|by|bysort|of)\b
@@ -86,4 +103,3 @@ contexts:
     - match: \b(dgammapdx|ustrnormalize|sum|invnt|rcauchy|vec|maxlong|wordcount|vecdiag|ustrregexs|invlogit|invweibullph|rlaplace|doy|ln|Chms|invnFtail|soundex|replay|invpoisson|hh|ustrfix|weibullph|lncauchyden|s|maxfloat|Clock|rchi2|bofd|rbinomial|tobytes|dgammapdxdx|rownumb|ustrto|log|ustrword|invexponential|ustrwordcount|nchi2tail|epsdouble|issymmetric|nbetaden|twithin|e|msofminutes|comb|Ftail|ustrcompareex|hhC|minint|atan|invexponentialtail|invlaplacetail|tukeyprob|dofq|nullmat|scalar|poissontail|ustrltrim|cauchyden|strtrim|invnF|invF|invweibull|byteorder|ustrtoname|invnibeta|trunc|dofm|cauchy|dow|ustrsortkeyex|minfloat|nttail|atanh|colnumb|month|tq|Cofc|weibullden|colsof|hours|invigaussian|lnwishartden|matmissing|ssC|hypergeometricp|invt|invlaplace|mdyhms|ttail|maxbyte|strofreal|strrpos|mdy|invigaussiantail|subinword|trace|fileexists|weekly|sinh|ustrright|rgamma|regexs|chop|max|lnfactorial|yh|uisletter|inrange|t|rowsof|weibull|Cmdyhms|invnbinomialtail|strcat|invsym|td|epsfloat|igaussianden|inlist|mindouble|nbinomialp|asin|lnnormal|strmatch|Cdhms|ustrtrim|invnbinomial|tc|matrix|ustrregexm|lniwishartden|dofC|int|nFtail|maxint|strltrim|nchi2den|string|tC|udsubstr|strproper|ustrlen|npnchi2|nchi2|ustrregexra|sweep|minutes|qofd|invweibullphtail|ustrcompare|mi|strpos|tden|clock|Cofd|J|strtoname|tm|chi2den|diag0cnt|clip|binormal|yofd|word|missing|day|ibetatail|mm|return|ym|char|cholesky|ustrinvalidcnt|yw|logistic|hypergeometric|logit|collatorlocale|ustrreverse|mreldif|ss|regexm|dofc|yearly|filewrite|min|plural|binomialtail|has_eprop|quarter|chi2tail|exponential|indexnot|igaussiantail|usubstr|mofd|invdunnettprob|cloglog|lnigammaden|invttail|hms|ustrregexrf|roweqnumb|cofC|strlen|invcloglog|rlogistic|halfyear|invlogistic|msofhours|ustrlower|poisson|invnormal|logistictail|invlogistictail|lnmvnormalden|invFtail|invcauchy|digamma|udstrlen|round|cos|invpoissontail|invchi2tail|chi2|wofd|strlower|ceil|exponentialtail|dofb|irecode|rexponential|betaden|ustrpos|subinstr|weibullphtail|minlong|year|coleqnumb|fileread|acos|invtukeyprob|usubinstr|log10|dofw|recode|nF|invibetatail|corr|sqrt|r|yq|ustrupper|poissonp|nibeta|strdup|nt|c|rpoisson|uisdigit|matuniform|strreverse|normal|invibeta|I|rweibullph|laplace|invbinomial|Fden|wordbreaklocale|th|daily|_caller|invnchi2|igaussian|ntden|nbinomialtail|inv|hofd|hadamard|nbinomial|abbrev|dhms|asinh|normalden|dunnettprob|ustrtohex|rownfreeparms|rhypergeometric|rnbinomial|stritrim|laplacetail|cond|halfyearly|invgammaptail|soundex_nara|smallestdouble|runiformint|det|ustrrpos|diag|gammap|dofy|binomialp|strupper|npnF|ustrrtrim|abs|monthly|logisticden|gammaden|get|dgammapdadx|nFden|collatorversion|atan2|quarterly|tw|rnormal|reldif|date|cauchytail|dgammapda|tin|invweibulltail|cofd|maxdouble|cosh|seconds|filereaderror|sin|mod|lnnormalden|uchar|week|invbinomialtail|invnttail|el|invchi2|colnfreeparms|invgammap|ustrtitle|real|npnt|tanh|invnchi2tail|exponentialden|fmtwidth|lnlaplaceden|ustrleft|ustrfrom|autocode|lnigaussianden|weibullphden|rt|exp|laplaceden|mmC|dgammapdada|msofseconds|substr|ustrsortkey|rbeta|ibeta|minbyte|runiform|regexr|lngamma|F|tan|gammaptail|ustrunescape|float|dofh|rweibull|rigaussian|trigamma|weibulltail|strrtrim|floor|acosh|binomial|invcauchytail|sign)\b
       captures:
         1: entity.name.function.stata
-  
